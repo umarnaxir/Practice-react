@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 
 function Login() {
@@ -15,6 +15,10 @@ function Login() {
       alert("Login failed");
     }
   }
+  useEffect(() => {
+    const value = localStorage.getItem("isLogin");
+    if (value === "true") redirect("/dashboard");
+  }, []);
 
   function clearInputs() {
     setUsername("");

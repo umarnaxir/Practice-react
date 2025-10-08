@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { redirect } from "next/navigation";
 
 function DashboardPage() {
@@ -7,7 +7,6 @@ function DashboardPage() {
     const value = localStorage.getItem("isLogin");
     if (value !== "true") redirect("/");
   }, []);
-
   return (
     <div className="min-h-screen bg-black text-white relative p-6">
       <button
