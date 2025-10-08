@@ -2,56 +2,131 @@
 import { useState } from "react";
 const TodoList = () => {
   const todos = [
-    { id: 1, task: 'Learn React' },
-    { id: 2, task: 'Having Lunch' },
-    { id: 3, task: 'Office Work' },
+    { id: 1, task: "Learn React" },
+    { id: 2, task: "Having Lunch" },
+    { id: 3, task: "Office Work" },
   ];
 
   const [todosList, setTodosList] = useState(todos);
-  const [input, setInput] = useState('');
+  const [transferList, setTransferList] = useState([]);
+  const [input, setInput] = useState("");
 
   const addTask = () => {
-    if (input.trim() === '') return;
+    if (input.trim() === "") return;
     const newTask = {
       id: Date.now(),
       task: input,
     };
     setTodosList([...todosList, newTask]);
-    setInput('');
-  }
+    setInput("");
+  };
 
   const deleteTask = (id) => {
-    setTodosList(todosList.filter(todo => todo.id !== id));
+    setTodosList(todosList.filter((todo) => todo.id !== id));
+  };
+
+  const transferTask = (id) => {
+    const taskToTransfer = todosList.find((todo) => todo.id === id);
+    if (taskToTransfer) {
+      setTodosList(todosList.filter((todo) => todo.id !== id));
+      setTransferList([...transferList, taskToTransfer]);
+    }
+  };
+
+  const moveBackTask = (id) => {
+    const taskToMoveBack = transferList.find((todo) => todo.id === id);
+    if (taskToMoveBack) {
+      setTransferList(transferList.filter((todo) => todo.id !== id));
+      setTodosList([...todosList, taskToMoveBack]);
+    }
+  };
+    const transferAll = () => {
+    setTransferList([...transferList, ...todosList]);
+    setTodosList([]);
+  };
+
+  const transferAllBack = () => {
+    setTodosList([...todosList, ...transferList]);
+    setTransferList([]);
   };
 
   return (
-    <div className='bg-white text-black justify-center items-center min-h-screen pt-10 px-10'>
-      <div className='bg-amber-200 w-max py-3 px-4 rounded-2xl'>
-        <h1 className='text-4xl font-bold py-6'>To Do List</h1>
-        <div className='mb-4 flex gap-2'>
+    // TodoList
+    <div className="flex flex-row bg-white text-black justify-center items-start min-h-screen pt-10 px-10 gap-8">
+      <div className="bg-amber-200 w-max py-3 px-4 rounded-2xl">
+        <h1 className="text-4xl font-bold py-6">To Do List</h1>
+        <div className="mb-4 flex gap-2">
           <input
             type="text"
             value={input}
-            onChange={e => setInput(e.target.value)}
-            className='border px-2 py-1 rounded'
-            placeholder='Add task'
+            onChange={(e) => setInput(e.target.value)}
+            className="border px-2 py-1 rounded"
+            placeholder="Add task"
           />
           <button
             onClick={addTask}
-            className='px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600'
+            className="px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600"
           >
             Add Task
           </button>
         </div>
-        <ul className='text-2xl'>
+        <ul className="text-2xl">
           {todosList.map((todo) => (
-            <li key={todo.id} className='flex items-center justify-between mb-2'>
+            <li
+              key={todo.id}
+              className="flex items-center justify-between mb-2"
+            >
               <span>{todo.task}</span>
               <button
                 onClick={() => deleteTask(todo.id)}
-                className='ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm'
+                className="ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
               >
                 Delete
+              </button>
+              <button
+                onClick={() => transferTask(todo.id)}
+                className="ml-4 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
+              >
+                Transfer
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Transfer all Data */}
+      <button
+        onClick={() => transferAll(TodoList)}
+        className="ml-4 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
+      >
+        Transfer all
+      </button>
+
+    <button
+        onClick={() => transferAllBack(TodoList)}
+        className="ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
+      >
+        Transfer all Back
+      </button>
+
+      {/* Transfer List */}
+      <div className="bg-amber-500 border-2 min-h-[400px] w-max py-3 px-4 rounded-2xl flex flex-col">
+        <h1 className="text-4xl font-bold py-6">Transfer List</h1>
+        <ul className="text-2xl">
+          {transferList.length === 0 && (
+            <li className="text-lg text-gray-700">No Items</li>
+          )}
+          {transferList.map((todo) => (
+            <li
+              key={todo.id}
+              className="flex items-center justify-between mb-2"
+            >
+              <span>{todo.task}</span>
+              <button
+                onClick={() => moveBackTask(todo.id)}
+                className="ml-4 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
+              >
+                Move Back
               </button>
             </li>
           ))}
@@ -59,5 +134,5 @@ const TodoList = () => {
       </div>
     </div>
   );
-}
+};
 export default TodoList;
