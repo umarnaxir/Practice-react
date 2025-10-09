@@ -1,8 +1,11 @@
-import react from "react";
+
+import React from "react";
 import DashboardPage from "./components/DashboardPage";
-function Home(){
-    return(
-        <DashboardPage/>
-    );
+
+export default function Home() {
+  return (
+    <div>
+      <DashboardPage />
+    </div>
+  );
 }
-export default DashboardPage
