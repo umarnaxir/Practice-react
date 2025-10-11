@@ -10,14 +10,14 @@ function Login() {
     e.preventDefault();
     if (username === "umar" && password === "1122") {
       localStorage.setItem("isLogin", "true");
-      redirect("/dashboard");
+      redirect("/post-login/dashboard");
     } else {
       alert("Login failed");
     }
   }
   useEffect(() => {
     const value = localStorage.getItem("isLogin");
-    if (value === "true") redirect("/dashboard");
+    if (value === "true") redirect("/post-login/dashboard");
   }, []);
 
   function clearInputs() {

@@ -7,13 +7,13 @@ function Header() {
 
 
 
-  useEffect(() => {
-     console.log(window.location.pathname.slice(1));
-  }, []);
+  // useEffect(() => {
+  //    console.log(window.location.pathname.slice(1));
+  // }, []);
 
   return (
     <div className="bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4">
-      <Link href="/dashboard">
+      <Link href="/post-login/dashboard">
         <button
           onClick={() => setActiveTab("dashboard")}
           className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${
@@ -26,7 +26,7 @@ function Header() {
         </button>
       </Link>
 
-      <Link href="/todo">
+      <Link href="/post-login/todo">
         <button
           onClick={() => setActiveTab("todo")}
           className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${

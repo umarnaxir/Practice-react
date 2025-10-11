@@ -189,9 +189,6 @@ const handleEditCancel = () => {
           ))}
         </ul>
       </div>
-        {/* <div>
-          <h1 className="w-xl h-60 border-2">Hello</h1>
-        </div> */}
     </div>
   );
 };
