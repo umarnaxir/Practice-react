@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Toast from "../../components/Toast";
 const TodoList = () => {
   const todos = [
     { id: 1, task: "Learn React" },
@@ -12,6 +13,12 @@ const TodoList = () => {
   const [input, setInput] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [toast, setToast] = useState({ message: "", visible: false });
+
+  const showToast = (message) => {
+    setToast({ message, visible: true });
+    setTimeout(() => setToast({ message: "", visible: false }), 3000);
+  };
 
   const addTask = () => {
     if (input.trim() === "") return;
@@ -21,10 +28,12 @@ const TodoList = () => {
     };
     setTodosList([...todosList, newTask]);
     setInput("");
+    showToast("Task added successfully!");
   };
 
   const deleteTask = (id) => {
     setTodosList(todosList.filter((todo) => todo.id !== id));
+    showToast("Task deleted successfully!");
   };
 
   const transferTask = (id) => {
@@ -32,6 +41,7 @@ const TodoList = () => {
     if (taskToTransfer) {
       setTodosList(todosList.filter((todo) => todo.id !== id));
       setTransferList([...transferList, taskToTransfer]);
+      showToast("Task transferred successfully!");
     }
   };
 
@@ -40,44 +50,47 @@ const TodoList = () => {
     if (taskToMoveBack) {
       setTransferList(transferList.filter((todo) => todo.id !== id));
       setTodosList([...todosList, taskToMoveBack]);
+      showToast("Task moved back successfully!");
     }
   };
-    const transferAll = () => {
+
+  const transferAll = () => {
+    if (todosList.length === 0) return;
     setTransferList([...transferList, ...todosList]);
     setTodosList([]);
+    showToast("All tasks transferred successfully!");
   };
 
   const transferAllBack = () => {
+    if (transferList.length === 0) return;
     setTodosList([...todosList, ...transferList]);
     setTransferList([]);
+    showToast("All tasks moved back successfully!");
   };
 
+  const handleEdit = (id, index) => {
+    setEditIndex(index);
+    setEditValue(todosList[index].task);
+  };
 
-const handleEdit = (id, index) => {
-  setEditIndex(index);
-  setEditValue(todosList[index].task);
-};
+  const handleEditSave = (id) => {
+    if (editValue.trim() === "") return;
+    const updatedTodos = todosList.map((todo, idx) =>
+      idx === editIndex ? { ...todo, task: editValue } : todo
+    );
+    setTodosList(updatedTodos);
+    setEditIndex(null);
+    setEditValue("");
+    showToast("Task edited successfully!");
+  };
 
-const handleEditSave = (id) => {
-  const updatedTodos = todosList.map((todo, idx) =>
-    idx === editIndex ? { ...todo, task: editValue } : todo
-  );
-  setTodosList(updatedTodos);
-  setEditIndex(null);
-  setEditValue("");
-};
-
-const handleEditCancel = () => {
-  setEditIndex(null);
-  setEditValue("");
-};
-
-//  useEffect(() => {
-//   console.log(todosList);
-// }, []);
+  const handleEditCancel = () => {
+    setEditIndex(null);
+    setEditValue("");
+    showToast("Edit cancelled!");
+  };
 
   return (
-    // TodoList
     <div className="flex flex-row bg-white text-black justify-center items-start min-h-screen pt-10 px-10 gap-8">
       <div className="bg-amber-200 w-max py-3 px-4 rounded-2xl">
         <h1 className="text-4xl font-bold py-6">To Do List</h1>
@@ -151,22 +164,20 @@ const handleEditCancel = () => {
         </ul>
       </div>
 
-      {/* Transfer all Data */}
       <button
-        onClick={() => transferAll(TodoList)}
+        onClick={transferAll}
         className="ml-4 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm"
       >
         Transfer all
       </button>
 
-    <button
-        onClick={() => transferAllBack(TodoList)}
+      <button
+        onClick={transferAllBack}
         className="ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
       >
         Transfer all Back
       </button>
 
-      {/* Transfer List */}
       <div className="bg-amber-500 border-2 min-h-[400px] w-max py-3 px-4 rounded-2xl flex flex-col">
         <h1 className="text-4xl font-bold py-6">Transfer List</h1>
         <ul className="text-2xl">
@@ -189,7 +200,14 @@ const handleEditCancel = () => {
           ))}
         </ul>
       </div>
+
+      <Toast
+        message={toast.message}
+        onClose={() => setToast({ message: "", visible: false })}
+        visible={toast.visible}
+      />
     </div>
   );
 };
+
 export default TodoList;
