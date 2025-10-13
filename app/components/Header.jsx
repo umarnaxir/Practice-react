@@ -7,17 +7,19 @@ function Header() {
 
 
 
-  // useEffect(() => {
-  //    console.log(window.location.pathname.slice(1));
-  // }, []);
+   useEffect(() => {
+    const slug = window.location.pathname.slice(1);
+    console.log(slug);
+    setActiveTab(slug);
+  }, []);
 
   return (
     <div className="bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4">
       <Link href="/post-login/dashboard">
         <button
-          onClick={() => setActiveTab("dashboard")}
+          onClick={() => setActiveTab("post-login/dashboard")}
           className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${
-            activeTab === "dashboard"
+            activeTab === "post-login/dashboard"
               ? "bg-black text-amber-300 scale-105"
               : "bg-amber-300 text-black"
           }`}
@@ -28,9 +30,9 @@ function Header() {
 
       <Link href="/post-login/todo">
         <button
-          onClick={() => setActiveTab("todo")}
+          onClick={() => setActiveTab("post-login/todo")}
           className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${
-            activeTab === "todo"
+            activeTab === "post-login/todo"
               ? "bg-black text-amber-300 scale-105"
               : "bg-amber-300 text-black"
           }`}
