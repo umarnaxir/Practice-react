@@ -18,6 +18,7 @@ const TodoList = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
   const [toast, setToast] = useState({ message: "", visible: false });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const showToast = (message) => {
     setToast({ message, visible: true });
@@ -92,8 +93,8 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 text-gray-800 justify-center items-center py-1 px-6 pb-60 min-h-screen md:px-12 gap-6">
-      <Header title="TO DO LIST" />
+    <div className="flex flex-col bg-black text-gray-800 justify-center items-center py-1 px-6 pb-60 min-h-screen md:px-12 gap-6">
+  <Header title="TO DO LIST" searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="flex flex-col md:flex-row justify-center items-start gap-6 w-full">
         {/* Pending Tasks */}
@@ -106,6 +107,7 @@ const TodoList = () => {
             <TaskList
               type="pending"
               list={todosList}
+              searchQuery={searchQuery}
               editIndex={editIndex}
               editValue={editValue}
               onEditChange={setEditValue}
@@ -122,7 +124,7 @@ const TodoList = () => {
         {/* Completed Tasks */}
         <div className="w-full md:w-[400px]">
           <SectionBox title="Completed Task">
-            <TaskList type="completed" list={transferList} onMoveBack={moveBackTask} />
+            <TaskList type="completed" list={transferList} onMoveBack={moveBackTask} searchQuery={searchQuery} />
           </SectionBox>
           <Button text="MOVE ALL BACK" bgColor="bg-red-500" size="lg" full onClick={moveAllBack} className="mt-4" />
         </div>

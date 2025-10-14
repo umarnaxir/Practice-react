@@ -5,6 +5,7 @@ import EmptyState from "./EmptyState";
 const TaskList = ({
   type,
   list,
+  searchQuery,
   editIndex,
   editValue,
   onEditChange,
@@ -25,6 +26,7 @@ const TaskList = ({
             key={todo.id}
             todo={todo}
             idx={idx}
+            searchQuery={searchQuery}
             editIndex={editIndex}
             editValue={editValue}
             onEditChange={onEditChange}
@@ -41,7 +43,21 @@ const TaskList = ({
             key={todo.id}
             className="flex flex-wrap items-center justify-between p-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02]"
           >
-            <span className="flex-1 text-lg">{todo.task}</span>
+            <span className="flex-1 text-lg">
+              {searchQuery ? (
+                todo.task.split(new RegExp(`(${escapeRegExp(searchQuery)})`, "gi")).map((part, i) =>
+                  part.toLowerCase() === searchQuery.toLowerCase() ? (
+                    <mark key={i} className="bg-amber-200 px-0.5 rounded">
+                      {part}
+                    </mark>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )
+              ) : (
+                todo.task
+              )}
+            </span>
             <button
               onClick={() => onMoveBack(todo.id)}
               className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 text-sm transition-all duration-200 transform hover:scale-105"
@@ -54,5 +70,9 @@ const TaskList = ({
     </ul>
   );
 };
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 export default TaskList;

@@ -12,6 +12,7 @@ const TaskItem = ({
   onDelete,
   onTransfer,
   onEditClick,
+  searchQuery,
 }) => {
   const isEditing = editIndex === idx;
 
@@ -32,7 +33,21 @@ const TaskItem = ({
         </>
       ) : (
         <>
-          <span className="flex-1 text-lg">{todo.task}</span>
+          <span className="flex-1 text-lg">
+            {searchQuery ? (
+              todo.task.split(new RegExp(`(${escapeRegExp(searchQuery)})`, "gi")).map((part, i) =>
+                part.toLowerCase() === searchQuery.toLowerCase() ? (
+                  <mark key={i} className="bg-amber-200 px-0.5 rounded">
+                    {part}
+                  </mark>
+                ) : (
+                  <span key={i}>{part}</span>
+                )
+              )
+            ) : (
+              todo.task
+            )}
+          </span>
           <div className="flex gap-2">
             <Button text="Delete" bgColor="bg-red-500" size="sm" onClick={() => onDelete(todo.id)} />
             <Button text="Transfer" bgColor="bg-green-500" size="sm" onClick={() => onTransfer(todo.id)} />
@@ -45,3 +60,7 @@ const TaskItem = ({
 };
 
 export default TaskItem;
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
