@@ -40,6 +40,19 @@ function Header() {
           To Do List
         </button>
       </Link>
+
+      <Link href="/post-login/weather">
+        <button
+          onClick={() => setActiveTab("post-login/weather")}
+          className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${
+            activeTab === "post-login/weather"
+              ? "bg-black text-amber-300 scale-105"
+              : "bg-amber-300 text-black"
+          }`}
+        >
+          Weather
+        </button>
+      </Link>
       
     </div>
   );
