@@ -14,6 +14,8 @@ const Button = ({
       ? "px-3 py-1 text-sm"
       : size === "lg"
       ? "px-4 py-4 text-xl font-bold"
+      : size === "xl"
+      ? "px-10 py-4 text-xl font-bold"
       : "px-4 py-2 text-base";
 
   return (

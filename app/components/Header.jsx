@@ -14,7 +14,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4">
+    <div className="fixed w-full bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4">
       <Link href="/post-login/dashboard">
         <button
           onClick={() => setActiveTab("post-login/dashboard")}

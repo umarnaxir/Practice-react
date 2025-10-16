@@ -93,43 +93,73 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col bg-black text-gray-800 justify-center items-center py-1 px-6 pb-60 min-h-screen md:px-12 gap-6">
-  <Header title="TO DO LIST" searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className="flex flex-col bg-black text-gray-800 justify-center py-1 px-6  min-h-screen gap-6">
+      <Header
+        title="TO DO LIST"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
 
-      <div className="flex flex-col md:flex-row justify-center items-start gap-6 w-full">
+      <div className="flex  items-center justify-center ">
         {/* Pending Tasks */}
-        <div className="w-full md:w-[400px]">
-          <SectionBox title="Pending Task">
-            <div className="mb-6 flex gap-3">
-              <InputField value={inputPending} onChange={setInputPending} placeholder="Add a task..." />
-              <Button text="Add Task" onClick={addTask} />
-            </div>
-            <TaskList
-              type="pending"
-              list={todosList}
-              searchQuery={searchQuery}
-              editIndex={editIndex}
-              editValue={editValue}
-              onEditChange={setEditValue}
-              onEditSave={handleEditSave}
-              onEditCancel={handleEditCancel}
-              onDelete={deleteTask}
-              onTransfer={transferTask}
-              onEditClick={handleEdit}
+        <div className="flex items-center  flex-row gap-40">
+          <div className="w-full md:w-[400px]">
+            <SectionBox title="Pending Task">
+              <div className="mb-6 flex gap-3">
+                <InputField
+                  value={inputPending}
+                  onChange={setInputPending}
+                  placeholder="Add a task..."
+                />
+                <Button text="Add Task" onClick={addTask} />
+              </div>
+              <div className="p-1 h-80 overflow-y-scroll overflow-x-hidden">
+                <TaskList
+                  type="pending"
+                  list={todosList}
+                  searchQuery={searchQuery}
+                  editIndex={editIndex}
+                  editValue={editValue}
+                  onEditChange={setEditValue}
+                  onEditSave={handleEditSave}
+                  onEditCancel={handleEditCancel}
+                  onDelete={deleteTask}
+                  onTransfer={transferTask}
+                  onEditClick={handleEdit}
+                />
+              </div>
+            </SectionBox>
+            <Button
+              text="MOVE ALL"
+              bgColor="bg-green-500"
+              size="lg"
+              onClick={moveAll}
+              className="mt-4 w-[500px]"
             />
-          </SectionBox>
-          <Button text="MOVE ALL" bgColor="bg-green-500" size="lg" full onClick={moveAll} className="mt-4" />
-        </div>
+          </div>
 
-        {/* Completed Tasks */}
-        <div className="w-full md:w-[400px]">
-          <SectionBox title="Completed Task">
-            <TaskList type="completed" list={transferList} onMoveBack={moveBackTask} searchQuery={searchQuery} />
-          </SectionBox>
-          <Button text="MOVE ALL BACK" bgColor="bg-red-500" size="lg" full onClick={moveAllBack} className="mt-4" />
+          {/* Completed Tasks */}
+          <div className="w-full md:w-[400px]">
+            <SectionBox title="Completed Task">
+              <div className="p-1 h-97 overflow-y-scroll overflow-x-hidden">
+                <TaskList
+                  type="completed"
+                  list={transferList}
+                  onMoveBack={moveBackTask}
+                  searchQuery={searchQuery}
+                />
+              </div>
+            </SectionBox>
+            <Button
+              text="MOVE ALL BACK"
+              bgColor="bg-red-500"
+              size="xl"
+              onClick={moveAllBack}
+              className="mt-4 w-[500px]"
+            />
+          </div>
         </div>
       </div>
-
       <Toast message={toast.message} visible={toast.visible} />
     </div>
   );

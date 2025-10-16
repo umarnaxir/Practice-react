@@ -1,17 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
 
-const Header = ({
-  title = "App",
-  searchQuery: propQuery,
-  setSearchQuery: propSetSearchQuery,
-}) => {
-  const [localQuery, setLocalQuery] = useState("");
-  const value = propQuery !== undefined ? propQuery : localQuery;
-  const onChange =
-    propSetSearchQuery !== undefined ? propSetSearchQuery : setLocalQuery;
-
+const Header = ({ title, searchQuery, setSearchQuery }) => {
   return (
     <div className="w-full max-w-3xl mx-auto text-center py-6 border-b border-amber-300">
       <h1 className="text-4xl font-bold text-white uppercase mb-4">
@@ -20,8 +11,8 @@ const Header = ({
       <div className="flex justify-center">
         <SearchBar
           placeholder="Search tasks..."
-          value={value}
-          onChange={onChange}
+          value={searchQuery}
+          onChange={setSearchQuery}
         />
       </div>
     </div>
