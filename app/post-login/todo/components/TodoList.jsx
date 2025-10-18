@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useTheme } from "../../../context/ThemeContext";
 import Toast from "../../components/Toast";
 
 const TodoList = () => {
+  const { theme } = useTheme(); // current theme
+  const isDark = theme === "dark"; // simple flag
+
   const todos = [
     { id: 1, task: "Learn React" },
     { id: 2, task: "Having Lunch" },
@@ -92,18 +96,43 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 text-gray-800 justify-center items-center py-1 pb-50 px-6 min-h-screen md:px-12 gap-6 pt-32">
-      <h1 className="text-4xl font-bold text-gray-800 text-center uppercase border-b-2 border-black pb-2">TO DO LIST</h1>
+    <div
+      className={`flex flex-col justify-center items-center py-1 pb-50 px-6 min-h-screen md:px-12 gap-6 pt-32 transition-all duration-300
+        ${isDark ? "bg-black text-white" : "bg-gray-100 text-gray-800"}`}
+    >
+      <h1
+        className={`text-4xl font-bold uppercase border-b-2 pb-2 text-center ${
+          isDark ? "border-white" : "border-black"
+        }`}
+      >
+        TO DO LIST
+      </h1>
+
       <div className="flex flex-col md:flex-row justify-center items-start gap-6 w-full">
+        {/* Pending Tasks */}
         <div className="w-full md:w-[400px]">
-          <div className="bg-amber-400 w-full min-h-[400px] p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center uppercase border-b-2 border-black pb-2">PENDING TASK</h1>
+          <div
+            className={`w-full min-h-[400px] p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl ${
+              isDark ? "bg-gray-800 text-white" : "bg-amber-400 text-gray-800"
+            }`}
+          >
+            <h1
+              className={`text-3xl font-bold mb-6 text-center uppercase border-b-2 pb-2 ${
+                isDark ? "border-white" : "border-black"
+              }`}
+            >
+              PENDING TASK
+            </h1>
             <div className="mb-6 flex gap-3">
               <input
                 type="text"
                 value={inputPending}
                 onChange={(e) => setInputPending(e.target.value)}
-                className="flex-1 border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors duration-200 bg-white"
+                className={`flex-1 border-2 px-4 py-2 rounded-lg focus:outline-none transition-colors duration-200 ${
+                  isDark
+                    ? "bg-gray-700 border-gray-600 text-white focus:border-amber-400"
+                    : "bg-white border-gray-300 text-black focus:border-indigo-500"
+                }`}
                 placeholder="Add a task..."
               />
               <button
@@ -113,11 +142,13 @@ const TodoList = () => {
                 Add Task
               </button>
             </div>
+
             <ul className="space-y-3">
               {todosList.map((todo, idx) => (
                 <li
                   key={todo.id}
-                  className="flex flex-wrap items-center justify-between p-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02]"
+                  className={`flex flex-wrap items-center justify-between p-3 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.02]
+                    ${isDark ? "bg-gray-700 text-white" : "bg-white hover:bg-gray-50 text-black"}`}
                 >
                   {editIndex === idx ? (
                     <>
@@ -125,7 +156,11 @@ const TodoList = () => {
                         type="text"
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
-                        className="flex-1 min-w-[150px] border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-indigo-500 mr-3 bg-white"
+                        className={`flex-1 min-w-[150px] border-2 px-4 py-2 rounded-lg focus:outline-none mr-3 ${
+                          isDark
+                            ? "bg-gray-700 border-gray-600 text-white focus:border-amber-400"
+                            : "bg-white border-gray-300 text-black focus:border-indigo-500"
+                        }`}
                       />
                       <div className="flex gap-2 mt-2 sm:mt-0">
                         <button
@@ -171,6 +206,7 @@ const TodoList = () => {
               ))}
             </ul>
           </div>
+
           <button
             onClick={moveAll}
             className="w-full mt-4 px-4 py-4 bg-green-500 text-white rounded-lg hover:bg-green-600 text-xl font-bold transition-all duration-200 transform hover:scale-105"
@@ -179,9 +215,20 @@ const TodoList = () => {
           </button>
         </div>
 
+        {/* Completed Tasks */}
         <div className="w-full md:w-[400px]">
-          <div className="bg-amber-400 w-full min-h-[400px] p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center uppercase border-b-2 border-black pb-2">COMPLETED TASK</h1>
+          <div
+            className={`w-full min-h-[400px] p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl ${
+              isDark ? "bg-gray-800 text-white" : "bg-amber-400 text-gray-800"
+            }`}
+          >
+            <h1
+              className={`text-3xl font-bold mb-6 text-center uppercase border-b-2 pb-2 ${
+                isDark ? "border-white" : "border-black"
+              }`}
+            >
+              COMPLETED TASK
+            </h1>
             <ul className="space-y-3">
               {transferList.length === 0 && (
                 <li className="text-lg text-gray-500 text-center">No Items</li>
@@ -189,7 +236,8 @@ const TodoList = () => {
               {transferList.map((todo) => (
                 <li
                   key={todo.id}
-                  className="flex flex-wrap items-center justify-between p-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02]"
+                  className={`flex flex-wrap items-center justify-between p-3 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.02]
+                    ${isDark ? "bg-gray-700 text-white" : "bg-white hover:bg-gray-50 text-black"}`}
                 >
                   <span className="flex-1 text-lg">{todo.task}</span>
                   <button
@@ -202,6 +250,7 @@ const TodoList = () => {
               ))}
             </ul>
           </div>
+
           <button
             onClick={moveAllBack}
             className="w-full mt-4 px-4 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 text-xl font-bold transition-all duration-200 transform hover:scale-105"
