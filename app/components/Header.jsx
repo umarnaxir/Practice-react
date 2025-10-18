@@ -5,8 +5,6 @@ import Link from "next/link";
 function Header() {
   const [activeTab, setActiveTab] = useState();
 
-
-
    useEffect(() => {
     const slug = window.location.pathname.slice(1);
     console.log(slug);
@@ -14,7 +12,8 @@ function Header() {
   }, []);
 
   return (
-    <div className="fixed w-full bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4 z-50">
+    <div className="fixed w-[90vw] bg-amber-500 ml-15 text-base font-bold text-black py-2  m-3 flex justify-center items-center gap-4 rounded-3xl z-50">
+      <div className="py-2 flex justify-center items-center gap-5">
       <Link href="/post-login/dashboard">
         <button
           onClick={() => setActiveTab("post-login/dashboard")}
@@ -37,7 +36,7 @@ function Header() {
               : "bg-amber-300 text-black"
           }`}
         >
-          To Do List
+          TodoList
         </button>
       </Link>
 
@@ -66,7 +65,7 @@ function Header() {
           Weather
         </button>
       </Link>
-      
+    </div>
     </div>
   );
 }
