@@ -14,7 +14,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="fixed w-full bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4">
+    <div className="fixed w-full bg-amber-500 text-2xl text-black py-5 flex justify-center items-center gap-4 z-50">
       <Link href="/post-login/dashboard">
         <button
           onClick={() => setActiveTab("post-login/dashboard")}
@@ -38,6 +38,19 @@ function Header() {
           }`}
         >
           To Do List
+        </button>
+      </Link>
+
+            <Link href="/post-login/todolist">
+        <button
+          onClick={() => setActiveTab("post-login/todolist")}
+          className={`py-2 px-6 rounded-xl m-1 transition-all duration-200 ${
+            activeTab === "post-login/todolist"
+              ? "bg-black text-amber-300 scale-105"
+              : "bg-amber-300 text-black"
+          }`}
+        >
+          Todo Updated
         </button>
       </Link>
 

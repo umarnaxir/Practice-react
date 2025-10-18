@@ -93,7 +93,7 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col bg-black text-gray-800 justify-center py-1 px-6  min-h-screen gap-6">
+    <div className="flex flex-col bg-black text-gray-800 justify-center py-1 px-6  min-h-screen gap-6 pt-30">
       <Header
         title="TO DO LIST"
         searchQuery={searchQuery}

@@ -92,7 +92,7 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 text-gray-800 justify-center items-center py-1 pb-50 px-6 min-h-screen md:px-12 gap-6">
+    <div className="flex flex-col bg-gray-100 text-gray-800 justify-center items-center py-1 pb-50 px-6 min-h-screen md:px-12 gap-6 pt-32">
       <h1 className="text-4xl font-bold text-gray-800 text-center uppercase border-b-2 border-black pb-2">TO DO LIST</h1>
       <div className="flex flex-col md:flex-row justify-center items-start gap-6 w-full">
         <div className="w-full md:w-[400px]">
