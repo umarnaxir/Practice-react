@@ -81,14 +81,14 @@ export default function WeatherApp() {
             <div className="text-center lg:text-left mb-8">
               <h1
                 className={`text-5xl md:text-6xl font-bold drop-shadow-2xl mb-2 pt-4 ${
-                  theme === "dark" ? "text-white" : "text-black"
+                  theme === "dark" ? "text-white" : "text-white"
                 }`}
               >
                 Weather Dashboard
               </h1>
               <p
                 className={`text-lg drop-shadow ${
-                  theme === "dark" ? "text-white/80" : "text-black/70"
+                  theme === "dark" ? "text-white/80" : "text-white/90"
                 }`}
               >
                 Explore weather around the world
@@ -126,7 +126,7 @@ export default function WeatherApp() {
             >
               <h2
                 className={`text-3xl font-bold mb-6 ${
-                  theme === "dark" ? "text-white" : "text-black"
+                  theme === "dark" ? "text-white" : "text-white"
                 }`}
               >
                 Search City
