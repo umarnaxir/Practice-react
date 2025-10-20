@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 
 const Header = ({ title, searchQuery, setSearchQuery }) => {
   return (
-    <div className="w-full max-w-3xl mx-auto text-center py-6 border-b border-amber-300">
+    <div className="w-full max-w-3xl mx-auto text-center border-b border-amber-300">
       <h1 className="text-4xl font-bold text-white uppercase mb-4">
         {title}
       </h1>

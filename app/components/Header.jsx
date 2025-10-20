@@ -29,6 +29,8 @@ export default function Header() {
           { name: "TodoList", path: "post-login/todo" },
           { name: "Todo Updated", path: "post-login/todolist" },
           { name: "Weather", path: "post-login/weather" },
+          { name: "Apollo", path: "post-login/apollo" },
+
         ].map((item) => (
           <Link key={item.path} href={`/${item.path}`}>
             <button
