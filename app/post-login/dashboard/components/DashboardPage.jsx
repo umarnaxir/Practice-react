@@ -17,16 +17,7 @@ function DashboardPage() {
         theme === "dark" ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      {/* Logout Button */}
-      <button
-        className="absolute top-4 right-6 mt-20 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded font-semibold transition"
-        onClick={() => {
-          localStorage.setItem("isLogin", "false");
-          redirect("/");
-        }}
-      >
-        Logout
-      </button>
+
 
       {/* Heading */}
       <h1 className="text-4xl font-bold mt-20 text-center">
