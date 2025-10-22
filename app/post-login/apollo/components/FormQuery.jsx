@@ -41,7 +41,6 @@ export default function CountryForm() {
     fetchCountries();
   }, []);
 
-  // Handle search typing with loader (debounce)
   useEffect(() => {
     if (!countries.length) return;
 
@@ -67,8 +66,8 @@ export default function CountryForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
-      <div className="bg-gray-700 p-6 rounded-lg shadow-md w-full max-w-sm text-white relative border border-gray-600">
-        <h1 className="text-xl font-semibold text-center mb-6 text-gray-100">
+      <div className="bg-gray-700 p-6 rounded-lg shadow-md w-[600px] h-[440px] text-white relative border-2 mx-10 border-gray-600">
+        <h1 className="text-3xl font-semibold text-center mb-6 text-gray-100">
           Please Select Country
         </h1>
 
@@ -104,7 +103,6 @@ export default function CountryForm() {
               ))}
             </div>
           )}
-
           {/* No results */}
           {search.trim() !== "" && filtered.length === 0 && (
             <div className="absolute top-full left-0 w-full bg-gray-800 border border-gray-600 rounded-md mt-1 text-center text-gray-400 py-2">
@@ -114,9 +112,9 @@ export default function CountryForm() {
         </div>
 
         {/* Selected Country Box */}
-        <div className="bg-amber-200 p-4 mt-13 rounded-md text-black min-h-[180px] flex flex-col justify-center items-center">
+        <div className="bg-gray-100 mt-15 rounded-md text-black h-[230px] flex flex-col  justify-center items-center">
           {searchLoading ? (
-            <div className="text-3xl">
+            <div className="text-3xl text-center items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100"
@@ -146,35 +144,37 @@ export default function CountryForm() {
             </div>
           ) : selectedCountry ? (
             <>
-              <p className="mb-2">
+            <div className="text-start justify-items-start text-3xl">
+              <p className="mb-1">
                 Selected:{" "}
-                <span className="font-semibold">{selectedCountry.name}</span>
+                <span className="font-semibold text-4xl">{selectedCountry.name}</span>
               </p>
-              <p className="text-sm">
-                <span className="font-medium">Country Code:</span>{" "}
+              <p className="text-2xl font-bold">
+                <span className="font-medium text-xl">Country Code:</span>{" "}
                 {selectedCountry.code}
               </p>
-              <p className="text-sm">
-                <span className="font-medium">Capital:</span>{" "}
+              <p className="text-2xl font-bold">
+                <span className="font-medium text-xl">Capital:</span>{" "}
                 {selectedCountry.capital || "N/A"}
               </p>
-              <p className="text-sm mb-4">
-                <span className="font-medium">Currency:</span>{" "}
+              <p className="text-2xl font-bold mb-4">
+                <span className="font-medium text-xl">Currency:</span>{" "}
                 {selectedCountry.currency || "N/A"}
               </p>
               <Link href={`/country/${selectedCountry.code}`}>
-                <button className="w-full px-18 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors">
-                  Visit
+                <button className="w-full px-30 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors">
+                  Visit Page
                 </button>
               </Link>
+            </div>
             </>
           ) : (
             <p className="text-center text-gray-700 font-medium">
-              No Selected Country...
+              No Selected Country
             </p>
           )}
         </div>
       </div>
-    </div>
+      </div>
   );
 }
