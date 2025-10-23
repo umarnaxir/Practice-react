@@ -20,6 +20,7 @@ export default function Header() {
     { name: "TodoList", path: "post-login/todo" },
     { name: "Todo Updated", path: "post-login/todolist" },
     { name: "Weather", path: "post-login/weather" },
+    { name: "Progress Bar", path: "post-login/progressBar" },
     { name: "Apollo", path: "post-login/apollo" },
   ];
 

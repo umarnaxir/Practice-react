@@ -140,7 +140,7 @@ export default function CountryPage() {
         {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* General Info */}
-          <div className="bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-800 hover:border-gray-700 transition">
+          <div className="bg-gray-900 rounded-2xl p-6 shadow-md border border-gray-800 hover:border-gray-700 transition">
             <h2 className="text-lg font-semibold text-gray-100 mb-4">
               General Information
             </h2>
