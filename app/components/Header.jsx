@@ -22,6 +22,7 @@ export default function Header() {
     { name: "Weather", path: "post-login/weather" },
     { name: "Progress Bar", path: "post-login/progressBar" },
     { name: "Apollo", path: "post-login/apollo" },
+    { name: "Portal", path: "post-login/portal" },
   ];
 
   return (
