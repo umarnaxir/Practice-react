@@ -14,14 +14,14 @@ function DashboardPage() {
   }, []);
 
   const navItems = [
-    { name: "Dashboard", path: "post-login/dashboard", icon: "📊" },
     { name: "TodoList", path: "post-login/todo", icon: "📝" },
     { name: "Todo Updated", path: "post-login/todolist", icon: "🗂️" },
     { name: "Weather", path: "post-login/weather", icon: "🌦️" },
     { name: "Progress Bar", path: "post-login/progressBar", icon: "📈" },
     { name: "Apollo", path: "post-login/apollo", icon: "🌐" },
     { name: "Portal", path: "post-login/portal", icon: "🔗" },
-    { name: "Calculator", path: "/calculator", icon: "📱" },
+    { name: "Formik Form", path: "post-login/form", icon: "📋" },
+    { name: "Calculator", path: "calculator", icon: "📱" },
     { name: "Demo", path: "demo", icon: "🖌️" },
 
   ];

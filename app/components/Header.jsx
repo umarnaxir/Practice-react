@@ -23,6 +23,8 @@ export default function Header() {
     { name: "Progress Bar", path: "post-login/progressBar" },
     { name: "Apollo", path: "post-login/apollo" },
     { name: "Portal", path: "post-login/portal" },
+    { name: "Formik Form", path: "post-login/form" },
+
   ];
 
   return (

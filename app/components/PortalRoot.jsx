@@ -26,3 +26,16 @@ export default function PortalRoot({ children }) {
   if (!mounted || !portalNode) return null;
   return createPortal(children, portalNode);
 }
+
+// function delay(abc) {
+//   return new Promise((resolve) => setTimeout(resolve, abc));
+// }
+
+// async function logNumbers(number = 1) {
+//   if (number > 4) return;
+//   console.log(number);
+//   await delay(2000);
+//   await logNumbers(number + 1);    
+// }
+
+// logNumbers();
