@@ -2,22 +2,23 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-export default function FormField({ label, name, type }) {
+//  Reusable input field component
+export default function FormField({ name, type, placeholder, disabled }) {
   return (
-    <div className="flex flex-col mb-4">
-      <label htmlFor={name} className="font-semibold mb-1">
-        {label}
-      </label>
+    <div className="mb-3">
       <Field
-        type={type}
         name={name}
-        id={name}
-        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-500"
+        type={type}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={`w-full bg-gray-700 border border-gray-600 rounded p-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 ${
+          disabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       />
       <ErrorMessage
         name={name}
         component="div"
-        className="text-red-500 text-sm mt-1"
+        className="text-red-400 text-xs mt-1"
       />
     </div>
   );

@@ -2,135 +2,138 @@
 import React, { useState } from "react";
 import StudentForm from "./components/StudentForm";
 
+//  Sample initial data
+const initialStudents = [
+  {
+    name: "Umar Nazir",
+    age: 24,
+    email: "umar@example.com",
+    rollNo: "1",
+    address: "Baramulla",
+    activities: [
+      {
+        name: "Reading",
+        code: "RDG",
+        duration: { startTime: "2024-01-01T09:00", endTime: "2024-01-01T10:00" },
+      },
+    ],
+  },
+  {
+    name: "Aurangzaib",
+    age: 23,
+    email: "aurang@example.com",
+    rollNo: "2",
+    address: "Srinagar",
+    activities: [
+      {
+        name: "Gaming",
+        code: "GMG",
+        duration: { startTime: "2024-01-01T20:00", endTime: "2024-01-01T22:00" },
+      },
+    ],
+  },
+];
+
 export default function Page() {
-  const [students, setStudents] = useState([
-    {
-      name: "Umar Nazir",
-      age: 24,
-      email: "umar@example.com",
-      rollNo: "1",
-      address: "Baramulla",
-    },
-    {
-      name: "Aurangzaib",
-      age: 23,
-      email: "aurang@example.com",
-      rollNo: "2",
-      address: "Srinagar",
-    },
-    {
-      name: "Syed Owais",
-      age: 24,
-      email: "owais@example.com",
-      rollNo: "3",
-      address: "Budgam",
-    },
-    {
-      name: "Khalid Jan",
-      age: 24,
-      email: "khalid@example.com",
-      rollNo: "4",
-      address: "Sopore",
-    },
-  ]);
+  const [students, setStudents] = useState(initialStudents);
+  const [editingStudent, setEditingStudent] = useState(null);
 
-  const [submitted, setSubmitted] = useState(false);
-  const [editingStudent, setEditingStudent] = useState(null); // to hold data when editing
-
+  // Handle form submit (add or update student)
   const handleFormSubmit = (values) => {
-    console.log("Form Submitted:", values);
+    const exists = students.find((s) => s.rollNo === values.rollNo);
 
-    // Check if student already exists (by rollNo)
-    setStudents((prevStudents) => {
-      const existingIndex = prevStudents.findIndex(
-        (student) => student.rollNo === values.rollNo
+    if (exists) {
+      // Update existing
+      setStudents((prev) =>
+        prev.map((s) => (s.rollNo === values.rollNo ? values : s))
       );
+    } else {
+      // Add new student
+      setStudents((prev) => [...prev, values]);
+    }
 
-      if (existingIndex !== -1) {
-        // Update existing student
-        const updated = [...prevStudents];
-        updated[existingIndex] = values;
-        return updated;
-      } else {
-        // Add new student
-        return [...prevStudents, values];
-      }
-    });
-
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 2000);
-    setEditingStudent(null); // reset edit mode
+    setEditingStudent(null); // Reset form
   };
 
+  //  Edit a student
   const handleEdit = (rollNo) => {
     const studentToEdit = students.find((s) => s.rollNo === rollNo);
-    if (studentToEdit) {
-      setEditingStudent(studentToEdit);
-    }
+    if (studentToEdit) setEditingStudent(studentToEdit);
   };
 
+  // Delete a student
   const handleDelete = (rollNo) => {
-    setStudents((prevStudents) =>
-      prevStudents.filter((student) => student.rollNo !== rollNo)
-    );
+    setStudents((prev) => prev.filter((s) => s.rollNo !== rollNo));
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-14 min-h-screen bg-gray-100 p-4">
-      <StudentForm onSubmit={handleFormSubmit} editingStudent={editingStudent} />
+    <div className="min-h-screen bg-black text-white p-6 pt-30">
+      <h1 className="text-2xl font-bold text-center mb-6">Student Management</h1>
 
-      {submitted && (
-        <div className="mt-6 text-green-600 font-semibold text-lg">
-          ✅ Student record saved successfully!
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Left side: Form */}
+        <div>
+          <StudentForm onSubmit={handleFormSubmit} editingStudent={editingStudent} />
         </div>
-      )}
 
-      <div className="mt-10 text-black w-250 h-85 bg-white shadow-lg rounded-xl p-6 overflow-y-auto">
-        <h3 className="text-xl font-bold mb-4 text-center">Student List</h3>
-        <table className="w-full border-collapse text-sm md:text-base">
-          <thead>
-            <tr className="bg-gray-200 text-left">
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Age</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Roll No</th>
-              <th className="border p-2">Address</th>
-              <th className="border p-2 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student) => (
-              <tr key={student.rollNo} className="hover:bg-gray-100">
-                <td className="border p-2">{student.name}</td>
-                <td className="border p-2">{student.age}</td>
-                <td className="border p-2">{student.email}</td>
-                <td className="border p-2">{student.rollNo}</td>
-                <td className="border p-2">{student.address}</td>
-                <td className="border p-2 text-center space-x-2">
-                  <button
-                    onClick={() => handleEdit(student.rollNo)}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition-all"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(student.rollNo)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-all"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {students.length === 0 && (
-              <tr>
-                <td colSpan="6" className="text-center text-gray-500 py-3">
-                  No students available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        {/* Right side: Student List */}
+        <div>
+          <h2 className="text-lg font-semibold mb-3">Students List</h2>
+          {students.length === 0 ? (
+            <p className="text-gray-400">No students added yet.</p>
+          ) : (
+            <div className="space-y-3 max-h-[70vh] overflow-y-auto">
+              {students.map((student) => (
+                <div
+                  key={student.rollNo}
+                  className="bg-gray-900 border border-gray-800 rounded-lg p-3"
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="font-bold">{student.name}</h3>
+                      <p className="text-gray-400 text-sm">Roll No: {student.rollNo}</p>
+                    </div>
+                    <div className="space-x-2">
+                      <button
+                        onClick={() => handleEdit(student.rollNo)}
+                        className="bg-yellow-500 px-2 py-1 rounded text-xs"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(student.rollNo)}
+                        className="bg-red-600 px-2 py-1 rounded text-xs"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-2 text-sm">
+                    <p>Age: {student.age}</p>
+                    <p>Email: {student.email}</p>
+                    <p>Address: {student.address}</p>
+                  </div>
+
+                  <div className="mt-2">
+                    <p className="text-gray-400 text-xs mb-1">Activities:</p>
+                    {student.activities.map((a, i) => (
+                      <div key={i} className="bg-blue-900 p-2 rounded mb-1">
+                        <p>
+                          {a.name} ({a.code})
+                        </p>
+                        <p className="text-xs text-gray-300">
+                          Start: {a.duration.startTime} <br />
+                          End: {a.duration.endTime}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
