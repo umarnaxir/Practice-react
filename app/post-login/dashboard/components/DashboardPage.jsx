@@ -21,8 +21,8 @@ function DashboardPage() {
     { name: "Apollo", path: "post-login/apollo", icon: "🌐" },
     { name: "Portal", path: "post-login/portal", icon: "🔗" },
     { name: "Formik Form", path: "post-login/form", icon: "📋" },
-    { name: "Calculator", path: "calculator", icon: "📱" },
-    { name: "Demo", path: "demo", icon: "🖌️" },
+    { name: "Calculator", path: "post-login/calculator", icon: "📱" },
+    { name: "Demo", path: "post-login/demo", icon: "🖌️" },
 
   ];
 

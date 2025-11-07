@@ -4,7 +4,6 @@ import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import FormField from "./FormField";
 
-//  Form validation rules using Yup
 const validationSchema = Yup.object({
   name: Yup.string().required("Name required"),
   age: Yup.number().required("Age required").positive(),
@@ -23,7 +22,6 @@ const validationSchema = Yup.object({
   ),
 });
 
-//  Default form structure
 const defaultValues = {
   name: "",
   age: "",
@@ -52,7 +50,7 @@ export default function StudentForm({ onSubmit, editingStudent }) {
             {editingStudent ? "Edit Student" : "Add Student"}
           </h2>
 
-          {/* 🧠 Basic Fields */}
+          {/* Basic Fields */}
           <FormField name="name" type="text" placeholder="Full Name" />
           <FormField name="age" type="number" placeholder="Age" />
           <FormField name="email" type="email" placeholder="Email" />
@@ -64,43 +62,48 @@ export default function StudentForm({ onSubmit, editingStudent }) {
           />
           <FormField name="address" type="text" placeholder="Address" />
 
-          {/* 🎯 Activities Section */}
+          {/*  Activities Section */}
           <FieldArray name="activities">
             {(arrayHelpers) => (
               <div>
-                <h3 className="text-sm font-semibold mt-3 mb-2">
-                  Activities:
-                </h3>
+                <h3 className="text-sm font-semibold mt-3 mb-2">Activities:</h3>
+
                 {values.activities.map((activity, index) => (
                   <div
                     key={index}
                     className="bg-gray-800 p-3 rounded mb-2 border border-gray-700"
                   >
-                    {/* Name and Code */}
-                    <div className="flex gap-2 mb-2">
-                      <Field
-                        name={`activities.${index}.name`}
-                        placeholder="Activity Name"
-                        className="flex-1 bg-gray-700 p-2 rounded text-sm"
-                      />
+                    {/* Activity Name */}
+                    <Field
+                      name={`activities.${index}.name`}
+                      placeholder="Activity Name"
+                      className="w-full bg-gray-700 p-2 rounded text-sm mb-2"
+                    />
+
+                    {/* Show Code only when Activity Name is filled */}
+                    {activity.name && (
                       <Field
                         name={`activities.${index}.code`}
                         placeholder="Code"
-                        className="w-1/3 bg-gray-700 p-2 rounded text-sm"
+                        className="w-full bg-gray-700 p-2 rounded text-sm mb-2"
                       />
-                    </div>
+                    )}
 
-                    {/* Duration */}
-                    <Field
-                      type="datetime-local"
-                      name={`activities.${index}.duration.startTime`}
-                      className="w-full bg-gray-700 p-2 rounded text-sm mb-2"
-                    />
-                    <Field
-                      type="datetime-local"
-                      name={`activities.${index}.duration.endTime`}
-                      className="w-full bg-gray-700 p-2 rounded text-sm"
-                    />
+                    {/* Show Duration only when Code is filled */}
+                    {activity.name && activity.code && (
+                      <>
+                        <Field
+                          type="datetime-local"
+                          name={`activities.${index}.duration.startTime`}
+                          className="w-full bg-gray-700 p-2 rounded text-sm mb-2"
+                        />
+                        <Field
+                          type="datetime-local"
+                          name={`activities.${index}.duration.endTime`}
+                          className="w-full bg-gray-700 p-2 rounded text-sm"
+                        />
+                      </>
+                    )}
 
                     {/* Buttons */}
                     <div className="flex justify-end mt-2 gap-2">
@@ -131,7 +134,7 @@ export default function StudentForm({ onSubmit, editingStudent }) {
             )}
           </FieldArray>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
             className={`w-full mt-3 py-2 rounded text-white ${

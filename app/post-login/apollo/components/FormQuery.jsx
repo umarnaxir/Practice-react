@@ -192,7 +192,7 @@ export default function CountryForm() {
                   <span className="font-medium text-xl">Currency:</span>{" "}
                   {selectedCountry.currency || "N/A"}
                 </p>
-                <Link href={`/country/${selectedCountry.code}`}>
+                <Link href={`/post-login/country/${selectedCountry.code}`}>
                   <button className="w-full px-30 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-md transition-colors">
                     Visit Page
                   </button>

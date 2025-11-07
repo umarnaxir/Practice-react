@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import StudentForm from "./components/StudentForm";
 
-//  Sample initial data
 const initialStudents = [
   {
     name: "Umar Nazir",
@@ -38,30 +37,25 @@ export default function Page() {
   const [students, setStudents] = useState(initialStudents);
   const [editingStudent, setEditingStudent] = useState(null);
 
-  // Handle form submit (add or update student)
   const handleFormSubmit = (values) => {
     const exists = students.find((s) => s.rollNo === values.rollNo);
 
     if (exists) {
-      // Update existing
       setStudents((prev) =>
         prev.map((s) => (s.rollNo === values.rollNo ? values : s))
       );
     } else {
-      // Add new student
       setStudents((prev) => [...prev, values]);
     }
 
-    setEditingStudent(null); // Reset form
+    setEditingStudent(null);
   };
 
-  //  Edit a student
   const handleEdit = (rollNo) => {
     const studentToEdit = students.find((s) => s.rollNo === rollNo);
     if (studentToEdit) setEditingStudent(studentToEdit);
   };
 
-  // Delete a student
   const handleDelete = (rollNo) => {
     setStudents((prev) => prev.filter((s) => s.rollNo !== rollNo));
   };
@@ -71,12 +65,10 @@ export default function Page() {
       <h1 className="text-2xl font-bold text-center mb-6">Student Management</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left side: Form */}
         <div>
           <StudentForm onSubmit={handleFormSubmit} editingStudent={editingStudent} />
         </div>
 
-        {/* Right side: Student List */}
         <div>
           <h2 className="text-lg font-semibold mb-3">Students List</h2>
           {students.length === 0 ? (
@@ -91,7 +83,9 @@ export default function Page() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="font-bold">{student.name}</h3>
-                      <p className="text-gray-400 text-sm">Roll No: {student.rollNo}</p>
+                      <p className="text-gray-400 text-sm">
+                        Roll No: {student.rollNo}
+                      </p>
                     </div>
                     <div className="space-x-2">
                       <button

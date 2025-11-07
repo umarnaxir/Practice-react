@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// SHARED STYLED COMPONENTS - REUSABLE
 // Container
 export const Container = styled.div`
   font-family: "Poppins", sans-serif;

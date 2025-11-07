@@ -2,7 +2,6 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 
-//  Reusable input field component
 export default function FormField({ name, type, placeholder, disabled }) {
   return (
     <div className="mb-3">

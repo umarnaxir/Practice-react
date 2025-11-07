@@ -29,15 +29,17 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: "Dashboard", path: "post-login/dashboard" },
-    { name: "TodoList", path: "post-login/todo" },
-    { name: "Todo Updated", path: "post-login/todolist" },
-    { name: "Weather", path: "post-login/weather" },
-    { name: "Progress Bar", path: "post-login/progressBar" },
-    { name: "Apollo", path: "post-login/apollo" },
-    { name: "Portal", path: "post-login/portal" },
-    { name: "Formik Form", path: "post-login/form" },
-    { name: "Styled Components", path: "post-login/styled-components" },
+    { name: "Dashboard", path: "dashboard" },
+    { name: "TodoList", path: "/todo" },
+    { name: "Todo Updated", path: "todolist" },
+    { name: "Weather", path: "weather" },
+    { name: "Progress Bar", path: "progressBar" },
+    { name: "Apollo", path: "apollo" },
+    { name: "Landing Page", path: "styled-components" },
+    { name: "Formik Form", path: "form" },
+    { name: "Calculator", path: "calculator" },
+    { name: "Portal", path: "portal" },
+    { name: "Counter", path: "demo" },
   ];
 
   const handleLogout = () => {
@@ -46,6 +48,7 @@ export default function Header() {
   };
 
   const handleNavClick = (path) => {
+    router.push(`/post-login/${path}`)
     setActiveTab(path);
     setIsDropdownOpen(false);
     setIsMobileMenuOpen(false);
@@ -82,7 +85,7 @@ export default function Header() {
                 <div
                   onMouseEnter={() => setIsDropdownOpen(true)}
                   onMouseLeave={() => setIsDropdownOpen(false)}
-                  className={`absolute top-full mt-2 left-0 w-[600px] rounded-xl shadow-2xl p-4 z-50 ${
+                  className={`absolute top-full left-0 w-[600px] rounded-xl shadow-2xl p-4 z-50 ${
                     theme === "dark"
                       ? "bg-gray-900 border border-gray-800"
                       : "bg-white border border-orange-200"
@@ -90,9 +93,8 @@ export default function Header() {
                 >
                   <div className="grid grid-cols-3 gap-2">
                     {navItems.map((item) => (
-                      <Link
+                      <div
                         key={item.path}
-                        href={`/${item.path}`}
                         onClick={() => handleNavClick(item.path)}
                         className={`px-4 py-3 rounded-lg font-semibold transition-all duration-200 text-center ${
                           activeTab === item.path
@@ -105,7 +107,7 @@ export default function Header() {
                         }`}
                       >
                         {item.name}
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -177,9 +179,8 @@ export default function Header() {
             <div className="lg:hidden mt-4 pt-4 border-t border-orange-200 dark:border-gray-800">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {navItems.map((item) => (
-                  <Link
+                  <div
                     key={item.path}
-                    href={`/${item.path}`}
                     onClick={() => handleNavClick(item.path)}
                     className={`px-3 py-3 rounded-lg font-semibold transition-all duration-200 text-center text-sm ${
                       activeTab === item.path
@@ -192,7 +193,7 @@ export default function Header() {
                     }`}
                   >
                     {item.name}
-                  </Link>
+                  </div>
                 ))}
               </div>
               
