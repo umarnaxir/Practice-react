@@ -29,18 +29,18 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { name: "Dashboard", path: "dashboard" },
-    { name: "TodoList", path: "/todo" },
-    { name: "Todo Updated", path: "todolist" },
-    { name: "Weather", path: "weather" },
-    { name: "Progress Bar", path: "progressBar" },
-    { name: "Apollo", path: "apollo" },
-    { name: "Landing Page", path: "styled-components" },
-    { name: "Formik Form", path: "form" },
-    { name: "Calculator", path: "calculator" },
-    { name: "Portal", path: "portal" },
-    { name: "Counter", path: "demo" },
-    { name: "Observer", path: "intersection-observer" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "TodoList", path: "/post-login/todo" },
+    { name: "Todo Updated", path: "/post-login/todolist" },
+    { name: "Weather", path: "/post-login/weather" },
+    { name: "Progress Bar", path: "/post-login/progressBar" },
+    { name: "Apollo", path: "/post-login/apollo" },
+    { name: "Landing Page", path: "/post-login/styled-components" },
+    { name: "Formik Form", path: "/post-login/form" },
+    { name: "Calculator", path: "/post-login/calculator" },
+    { name: "Portal", path: "/post-login/portal" },
+    { name: "Counter", path: "/post-login/demo" },
+    { name: "Observer", path: "/post-login/intersection-observer" },
   ];
 
   const handleLogout = () => {
@@ -49,7 +49,7 @@ export default function Header() {
   };
 
   const handleNavClick = (path) => {
-    router.push(`/post-login/${path}`)
+    router.push(`${path}`)
     setActiveTab(path);
     setIsDropdownOpen(false);
     setIsMobileMenuOpen(false);

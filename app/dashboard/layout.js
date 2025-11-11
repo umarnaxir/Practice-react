@@ -1,51 +1,31 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
+import NavigationLoader from "./components/NavigationLoader";
+import PageLoader from "./components/PageLoader";
 import "../globals.css";
 
 export default function DashboardLayout({ children }) {
-  const [theme, setTheme] = useState("light");
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-
-    // Listen for theme changes
-    const handleStorageChange = () => {
-      const newTheme = localStorage.getItem("theme") || "light";
-      setTheme(newTheme);
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    // Poll for theme changes (for same-tab updates)
-    const interval = setInterval(() => {
-      const newTheme = localStorage.getItem("theme") || "light";
-      if (newTheme !== theme) {
-        setTheme(newTheme);
-      }
-    }, 100);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      clearInterval(interval);
-    };
-  }, [theme]);
-
   return (
-    <div
-      className={`min-h-screen flex transition-colors duration-300 ${
-        theme === "dark" ? "bg-black text-white" : "bg-gray-50 text-gray-900"
-      }`}
-    >
+    <div className="min-h-screen flex bg-black text-white relative">
+      {/* Sidebar */}
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <main
-        className={`flex-1 transition-all duration-300 ${
-          isCollapsed ? "ml-20" : "ml-64"
-        }`}
-      >
-        {children}
-      </main>
+
+      {/* Page Content + Navigation Loader */}
+      {/* <PageLoader> */}
+        <main
+          className={`flex-1 transition-all duration-300 ${
+            isCollapsed ? "ml-20" : "ml-64"
+          }`}
+        >
+          {children}
+        </main>
+
+        {/* Loader will overlay the screen during route changes */}
+        <NavigationLoader />
+      {/* </PageLoader> */}
     </div>
   );
 }

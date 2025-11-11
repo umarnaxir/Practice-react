@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   CheckSquare,
   ListChecks,
@@ -12,8 +12,7 @@ import {
   FileText,
   Calculator,
   Palette,
-  Sun,
-  Moon,
+  LogOut,
   ChevronLeft,
   ChevronRight,
   Home,
@@ -23,18 +22,13 @@ import {
 } from "lucide-react";
 
 function Sidebar({ isCollapsed, setIsCollapsed }) {
-  const [theme, setTheme] = useState("light");
   const pathname = usePathname();
+  const router = useRouter();
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+  const handleLogout = () => {
+    // Add your logout logic here
+    // For example: clear session, redirect to login, etc.
+    router.push("/");
   };
 
   const navItems = [
@@ -57,25 +51,17 @@ function Sidebar({ isCollapsed, setIsCollapsed }) {
     <aside
       className={`${
         isCollapsed ? "w-20" : "w-64"
-      } ${
-        theme === "dark" ? "bg-black border-orange-500/20" : "bg-white border-gray-200"
-      } border-r transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen z-40`}
+      } bg-black border-orange-500/20 border-r transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen z-40`}
     >
       {/* Sidebar Header */}
-      <div className={`p-4 flex items-center justify-between border-b ${
-        theme === "dark" ? "border-orange-500/20" : "border-gray-200"
-      }`}>
+      <div className="p-4 flex items-center justify-between border-b border-orange-500/20">
         {!isCollapsed && (
-          <h2 className="text-xl font-bold">Dashboard</h2>
+          <h2 className="text-xl font-bold text-white">Dashboard</h2>
         )}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className={`p-2 rounded-lg transition-colors ${
+          className={`p-2 rounded-lg transition-colors hover:bg-orange-500/10 text-white ${
             isCollapsed ? "mx-auto" : ""
-          } ${
-            theme === "dark" 
-              ? "hover:bg-orange-500/10 text-white" 
-              : "hover:bg-gray-100"
           }`}
         >
           {isCollapsed ? (
@@ -91,19 +77,15 @@ function Sidebar({ isCollapsed, setIsCollapsed }) {
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.path;
-          
+
           return (
             <Link
               key={item.path}
               href={item.path}
               className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${
                 isActive
-                  ? theme === "dark"
-                    ? "bg-orange-500 text-black shadow-lg shadow-orange-500/50"
-                    : "bg-blue-500 text-white"
-                  : theme === "dark"
-                  ? "hover:bg-orange-500/10 text-white"
-                  : "hover:bg-gray-100 text-gray-700"
+                  ? "bg-orange-500 text-black shadow-lg shadow-orange-500/50"
+                  : "hover:bg-orange-500/10 text-white"
               } ${isCollapsed ? "justify-center" : ""}`}
               title={isCollapsed ? item.name : ""}
             >
@@ -116,28 +98,18 @@ function Sidebar({ isCollapsed, setIsCollapsed }) {
         })}
       </nav>
 
-      {/* Theme Toggle */}
-      <div className={`p-4 border-t ${
-        theme === "dark" ? "border-orange-500/20" : "border-gray-200"
-      }`}>
+      {/* Logout Button */}
+      <div className="p-4 border-t border-orange-500/20">
         <button
-          onClick={toggleTheme}
-          className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
-            theme === "dark"
-              ? "hover:bg-orange-500/10 text-white"
-              : "hover:bg-gray-100 text-gray-700"
-          } ${isCollapsed ? "justify-center" : ""}`}
-          title={isCollapsed ? "Toggle Theme" : ""}
+          onClick={handleLogout}
+          className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors hover:bg-red-500/10 text-white ${
+            isCollapsed ? "justify-center" : ""
+          }`}
+          title={isCollapsed ? "Logout" : ""}
         >
-          {theme === "dark" ? (
-            <Sun className="w-5 h-5 flex-shrink-0" />
-          ) : (
-            <Moon className="w-5 h-5 flex-shrink-0" />
-          )}
+          <LogOut className="w-5 h-5 flex-shrink-0" />
           {!isCollapsed && (
-            <span className="text-sm font-medium">
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
-            </span>
+            <span className="text-sm font-medium">Logout</span>
           )}
         </button>
       </div>
