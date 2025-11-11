@@ -40,6 +40,7 @@ export default function Header() {
     { name: "Calculator", path: "calculator" },
     { name: "Portal", path: "portal" },
     { name: "Counter", path: "demo" },
+    { name: "Observer", path: "intersection-observer" },
   ];
 
   const handleLogout = () => {
