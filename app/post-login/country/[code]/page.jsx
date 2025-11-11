@@ -124,7 +124,7 @@ export default function CountryPage() {
   }
 
   return (
-    <div className="w-screen min-h-screen bg-black text-gray-200 flex flex-col items-center py-10 px-4 overflow-y-auto">
+    <div className="w-screen min-h-screen bg-black text-gray-200 flex flex-col items-center pt-24 md:pt-32 pb-10 px-4 overflow-y-auto">
       <div className="w-full max-w-4xl flex flex-col gap-8">
         {/* Header */}
         <div className="text-center">

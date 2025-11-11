@@ -4,11 +4,11 @@ import SearchBar from "./SearchBar";
 
 const Header = ({ title, searchQuery, setSearchQuery }) => {
   return (
-    <div className="w-full max-w-3xl mx-auto text-center border-b border-amber-300">
-      <h1 className="text-4xl font-bold text-white uppercase mb-4">
+    <div className="w-full max-w-3xl mx-auto text-center px-4">
+      <h1 className="text-4xl font-bold text-white uppercase pb-2 mb-4">
         {title}
       </h1>
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full">
         <SearchBar
           placeholder="Search tasks..."
           value={searchQuery}

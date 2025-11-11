@@ -23,7 +23,7 @@ const Button = ({
       onClick={onClick}
       className={`${sizeClass} ${bgColor} ${textColor} ${
         full ? "w-full" : ""
-      } rounded-lg transition-all duration-200 transform hover:scale-105 hover:brightness-110 ${className}`}
+      } rounded-lg transition-all duration-200 transform hover:scale-105 ${className}`}
     >
       {text}
     </button>
